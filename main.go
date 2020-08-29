@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	filename := "/var/log/vario/sample.log"
+	filename := "/var/log/sample/sample.log"
 	pathdir := filepath.Dir(filename)
 	if _, err := os.Stat(pathdir); os.IsNotExist(err) {
 		err = os.Mkdir(pathdir, 0755)
@@ -16,9 +16,11 @@ func main() {
 			os.Exit(1)
 		}
 	}
-	_, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
+		_, err = os.Create(filename)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	}
 }
