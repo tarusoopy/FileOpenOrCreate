@@ -16,18 +16,9 @@ func main() {
 			os.Exit(1)
 		}
 	}
-	basename := filepath.Base(filename)
-	if _, err := os.Stat(basename); os.IsNotExist(err) {
-		f, err := os.Create(basename)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		err = f.Close()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
+	_, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
-
 }
