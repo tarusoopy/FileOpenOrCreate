@@ -7,8 +7,9 @@ import (
 )
 
 func main() {
-	filename := "/var/log/sample/sample.log"
+	filename := "/home/nakano/sample/sample.log"
 	pathdir := filepath.Dir(filename)
+    fmt.Println(pathdir)
 	if _, err := os.Stat(pathdir); os.IsNotExist(err) {
 		err = os.Mkdir(pathdir, 0755)
 		if err != nil {
@@ -16,6 +17,7 @@ func main() {
 			os.Exit(1)
 		}
 	}
+    fmt.Println(filename)
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		_, err = os.Create(filename)
 		if err != nil {
